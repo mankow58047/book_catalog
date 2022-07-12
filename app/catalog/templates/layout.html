@@ -1,0 +1,75 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    {# head #}
+    {% block head %}
+        <head>
+            <meta charset="UTF-8">
+            <title>Books Inc</title>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+            <link href="https://fonts.googleapis.com/css2?family=Sansita&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        </head>
+    {% endblock %}
+
+    {# body #}
+    {% block body %}
+        <body>
+        <div class="wrapper">
+            {# navigation bar #}
+            {% block navbar %}
+                <nav class="navbar navbar-inverse">
+                    <div class="container">
+                        <a class="navbar-brand title" href="{{ url_for('main.display_books') }}">Book Shop Around the Corner</a>
+
+                        <ul class="nav navbar-nav pull-right nav-list">
+                            <li><a href="{{ url_for('main.display_books') }}"> Home </a></li>
+                            <li><a href="{{ url_for('authentication.register_user')}}"> Register </a></li>
+                            <li>{% if current_user.is_authenticated %}
+                                    <a href="{{ url_for('authentication.log_out_user') }}"> SignOut </a>
+                                {% else %}
+                                    <a href="{{ url_for('authentication.do_the_login') }}">SignIn</a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <a href="">
+                                    {% if current_user.is_authenticated %}
+                                        LoggedIn as <b style="color: deeppink"> {{ current_user.user_name.title()}}</b>
+                                    {% else %}
+                                        Not LoggedIn
+                                    {% endif %}
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+        {% endblock navbar %}
+
+        {# flash messaging #}
+        {% for message in get_flashed_messages() %}
+            <div class="container alert alert-info">
+                <button type="button" class="close" data-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endfor %}
+
+
+        {% block content %}
+        {% endblock content %}
+
+         {# footer #}
+        {% block footer %}
+        <footer>
+            <div class="container ftr">
+                <hr>
+                <p class="text-center small"> The Shop Around The Corner &copy;	| 2019 </p>
+            </div>
+        </footer>
+        {% endblock footer %}
+        </div>
+        </body>
+    {% endblock body %}
+</html>
