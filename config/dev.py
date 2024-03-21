@@ -1,4 +1,4 @@
 DEBUG = True
-SECRET_KEY = 'Rainbow'
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:Rainbow@localhost/catalog_db'
+SECRET_KEY = ''
+SQLALCHEMY_DATABASE_URI = ''
 SQLALCHEMY_TRACK_MODIFICATIONS = False
